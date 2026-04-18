@@ -1,2 +1,2 @@
-localStorage.setItem("username", "mailys");
-localStorage.setItem("password", "1234");
+localStorage.setItem("username", "test");
+localStorage.setItem("password", "test1");

@@ -6,8 +6,7 @@ btnconnexion.addEventListener("click", function () {
     const storedUsername = localStorage.getItem("username");
     const storedPassword = localStorage.getItem("password");
     if (username === storedUsername && password === storedPassword) {
-        alert("Connexion réussie !");
-
+        window.location.href = "./src/pages/dashboard.html";
     } else {
         alert("Identifiant ou mot de passe incorrect.");
     }
