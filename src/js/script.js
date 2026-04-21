@@ -114,7 +114,7 @@ function renderFactures() {
         const tr = document.createElement('tr');
         tr.className = 'border-b border-gray-100 last:border-0 hover:bg-gray-50/60 transition-colors';
         tr.innerHTML = `
-            <td class="px-6 py-4 text-sm font-semibold text-gray-800">#${String(i + 1).padStart(3, '0')}</td>
+            <td class="px-6 py-4 text-sm font-semibold text-gray-800">${`FAC-${String(i + 1).padStart(3, "0")}`}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${esc(f.nom)}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${parseFloat(f.montantHT).toFixed(2)} €</td>
             <td class="px-6 py-4 text-sm text-gray-700">${parseFloat(f.montantTTC).toFixed(2)} €</td>
@@ -154,7 +154,7 @@ function renderDevis() {
         const tr = document.createElement('tr');
         tr.className = 'border-b border-gray-100 last:border-0 hover:bg-gray-50/60 transition-colors';
         tr.innerHTML = `
-            <td class="px-6 py-4 text-sm font-semibold text-gray-800">#${String(i + 1).padStart(3, '0')}</td>
+            <td class="px-6 py-4 text-sm font-semibold text-gray-800">${`DEV-${String(i + 1).padStart(3, "0")}`}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${esc(d.nom)}</td>
             <td class="px-6 py-4 text-sm text-gray-700">${parseFloat(d.montant).toFixed(2)} €</td>
             <td class="px-6 py-4 text-sm text-gray-500">${esc(d.date_emission)}</td>
