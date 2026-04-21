@@ -24,7 +24,7 @@ function esc(s) {
 function isoToFr(dateStr) {
     if (!dateStr) return '';
     const [y, m, d] = dateStr.split('-');
-    if (!y || !m || !d) return dateStr; // déjà au bon format
+    if (!y || !m || !d) return dateStr;
     return `${d}/${m}/${y}`;
 }
 
@@ -51,6 +51,66 @@ function statutBadge(statut) {
     return `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${cls}">${esc(statut)}</span>`;
 }
 
+// ── Tableau de bord ───────────────────────────────────────────
+function renderDashboard() {
+    // Vérifie qu'on est bien sur la page dashboard
+    if (!document.querySelector('.nbClient')) return;
+
+    const clients  = getClients();
+    const factures = getFactures();
+    const devis    = getDevis();
+
+    const chiffreAffaires = factures
+        .filter(f => f.statut === 'Payée')
+        .reduce((sum, f) => sum + parseFloat(f.montantTTC || 0), 0);
+
+    // Compteurs
+    document.querySelectorAll('.nbClient').forEach(el => {
+        el.textContent = clients.length;
+    });
+    document.querySelectorAll('.nbFacture').forEach(el => {
+        el.textContent = factures.length;
+    });
+    document.querySelectorAll('.nbDevis').forEach(el => {
+        el.textContent = devis.length;
+    });
+    document.querySelectorAll('.nbChiffreAffaires').forEach(el => {
+        el.textContent = chiffreAffaires.toFixed(2) + ' €';
+    });
+
+    // Tableau des dernières factures (5 plus récentes)
+    const tbody = document.querySelector('table tbody');
+    if (!tbody) return;
+
+    tbody.innerHTML = '';
+
+    if (factures.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5" class="px-5 py-8 text-center text-sm text-slate-400">
+                    Aucune facture pour l'instant.
+                </td>
+            </tr>`;
+        return;
+    }
+
+    // Prend les 5 dernières factures
+    const dernieres = [...factures].reverse().slice(0, 5);
+
+    dernieres.forEach((f, i) => {
+        const numero = `FAC-${String(factures.length - i).padStart(3, '0')}`;
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors';
+        tr.innerHTML = `
+            <td class="px-5 py-4 text-sm font-medium text-slate-700">${esc(numero)}</td>
+            <td class="px-5 py-4 text-sm text-slate-600">${esc(f.nom)}</td>
+            <td class="px-5 py-4 text-sm text-slate-600">${parseFloat(f.montantTTC || 0).toFixed(2)} €</td>
+            <td class="px-5 py-4 text-sm text-slate-500">${esc(f.date)}</td>
+            <td class="px-5 py-4">${statutBadge(f.statut)}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
 // ── Render clients ────────────────────────────────────────────
 function renderClients() {
     const clients = getClients();
@@ -59,7 +119,8 @@ function renderClients() {
 
     tbody.innerHTML = '';
     const n = clients.length;
-    document.getElementById('count').textContent = n + ' client' + (n > 1 ? 's' : '');
+    const countEl = document.getElementById('count');
+    if (countEl) countEl.textContent = n + ' client' + (n > 1 ? 's' : '');
 
     if (n === 0) {
         tbody.innerHTML = `
@@ -98,7 +159,8 @@ function renderFactures() {
 
     tbodyFacture.innerHTML = '';
     const n = factures.length;
-    document.getElementById('count').textContent = n + ' facture' + (n > 1 ? 's' : '');
+    const countEl = document.getElementById('count');
+    if (countEl) countEl.textContent = n + ' facture' + (n > 1 ? 's' : '');
 
     if (n === 0) {
         tbodyFacture.innerHTML = `
@@ -132,13 +194,14 @@ function renderFactures() {
 
 // ── Render devis ──────────────────────────────────────────────
 function renderDevis() {
-    const devis      = getDevis();
+    const devis = getDevis();
     const tbodyDevis = document.getElementById('tbodydevis');
     if (!tbodyDevis) return;
 
     tbodyDevis.innerHTML = '';
     const n = devis.length;
-    document.getElementById('count').textContent = n + ' devis';
+    const countEl = document.getElementById('count');
+    if (countEl) countEl.textContent = n + ' devis';
 
     if (n === 0) {
         tbodyDevis.innerHTML = `
@@ -172,11 +235,13 @@ function renderDevis() {
 
 // ── render() auto-détecte la page ─────────────────────────────
 function render() {
-    if (document.getElementById('tbodydevis')) {
+    if (document.querySelector('.nbClient')) {
+        renderDashboard();
+    } else if (document.getElementById('tbodydevis')) {
         renderDevis();
     } else if (document.getElementById('tbodyfacture')) {
         renderFactures();
-    } else {
+    } else if (document.getElementById('tbody')) {
         renderClients();
     }
 }
@@ -291,7 +356,7 @@ function addFacture() {
 
     const factures = getFactures();
     factures.push({ id: getNextFactureId(), nom: client, montantHT, montantTTC, date: isoToFr(date), statut });
-    saveFactures(factures); // ✅ sauvegarde
+    saveFactures(factures);
     render();
     clearFormFacture();
     document.getElementById('formSectionFacture').classList.add('hidden');
@@ -301,6 +366,7 @@ function addFacture() {
 
 function toggleFormFacture() {
     const fs = document.getElementById('formSectionFacture');
+    if (!fs) return;
     fs.classList.toggle('hidden');
     if (!fs.classList.contains('hidden')) {
         document.body.style.overflow = 'hidden';
@@ -360,7 +426,7 @@ function addDevis() {
 
     const devis = getDevis();
     devis.push({ id: getNextDevisId(), nom: client, montant, date_emission: isoToFr(date_emission), date_validite: isoToFr(date_validite), statut });
-    saveDevis(devis); // ✅ sauvegarde
+    saveDevis(devis);
     render();
     clearFormDevis();
     document.getElementById('formSectionDevis').classList.add('hidden');
@@ -370,6 +436,7 @@ function addDevis() {
 
 function toggleFormDevis() {
     const fs = document.getElementById('formSectionDevis');
+    if (!fs) return;
     fs.classList.toggle('hidden');
     if (!fs.classList.contains('hidden')) {
         document.body.style.overflow = 'hidden';

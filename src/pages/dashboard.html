@@ -80,13 +80,62 @@
 
     <!-- Main content -->
     
-        <div class="p-4">
-            <h1 class="text-2xl font-bold">Tableau de bord</h1>
-            <p class="mt-2 text-sm text-gray-600">Bienvenue sur votre espace de gestion</p>
-            
+        <main class="flex-1 p-6 lg:p-8">
+      <header class="mb-6">
+        <h1 class="text-2xl font-semibold">Tableau de bord</h1>
+        <p class="mt-1 text-slate-500">Bienvenue sur votre espace de gestion</p>
+      </header>
+
+      <section class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Clients</p>
+          <h2 class="nbClient mt-4 text-3xl font-semibold">0</h2>
+        </article>
+
+        <article class="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Factures</p>
+          <h2 class="nbFacture mt-4 text-3xl font-semibold">0</h2>
+        </article>
+
+        <article class="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Devis</p>
+          <h2 class="nbDevis mt-4 text-3xl font-semibold">0</h2>
+        </article>
+
+        <article class="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
+          <p class="text-sm text-slate-500">Chiffre d'affaires</p>
+          <h2 class="nbChiffreAffaires mt-4 text-3xl font-semibold">0.00</h2>
+        </article>
+      </section>
+
+      <section class="mt-6 rounded-xl bg-white shadow-sm border border-slate-200">
+        <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200">
+          <h3 class="font-semibold">Dernières factures</h3>
+          <a href="./facture.html" class="text-sm text-indigo-600 hover:text-indigo-700">Voir tout →</a>
         </div>
+
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="text-left text-slate-500">
+              <tr class="border-b border-slate-200">
+                <th class="px-5 py-4 font-medium">N° FACTURE</th>
+                <th class="px-5 py-4 font-medium">CLIENT</th>
+                <th class="px-5 py-4 font-medium">MONTANT TTC</th>
+                <th class="px-5 py-4 font-medium">DATE</th>
+                <th class="px-5 py-4 font-medium">STATUT</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
     </div>
     
 </div>
+<script src="../js/localStorage.js"></script>
+<script src="../js/script.js"></script>
 </body>
 </html>
