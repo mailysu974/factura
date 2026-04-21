@@ -21,14 +21,14 @@
         <!-- Nav -->
         <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-0.5">
 
-            <a href="./dashboard.html" class="flex items-center gap-2 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 text-sm">
+            <a href="./dashboard.html" class="flex items-center gap-2 px-3 py-2 rounded-md text-gray-300 bg-gray-700 text-sm">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
                 Tableau de bord
             </a>
 
             <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider px-3 pt-4 pb-1">Clients</p>
 
-            <a href="./clients.html" class="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-700 text-white text-sm">
+            <a href="./clients.html" class="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-700 text-white text-sm">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05C16.19 13.89 17 15.02 17 16.5V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                 Liste des clients
             </a>
@@ -45,7 +45,7 @@
                 Liste des factures
             </a>
 
-            <a href="./facture.html#nouveau" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
+            <a href="./facture.html#nouveau" onclick="toggleFormFacture()" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                 Nouvelle facture
             </a>
@@ -57,7 +57,7 @@
                 Liste des devis
             </a>
 
-            <a href="./devis.html#nouveau" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
+            <a href="./devis.html#nouveau" onclick="toggleFormDevis()" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                 Nouveau devis
             </a>
