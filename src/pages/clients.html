@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura-dashboard</title>
+    <link rel="stylesheet" href="/src/style.css">
+    <style>
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(-14px) scale(0.96); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-modal { animation: modalIn 0.2s cubic-bezier(.22,.68,0,1.2) forwards; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+    <aside class="w-60 flex-shrink-0 flex flex-col bg-gray-800 min-h-screen">
+
+        <!-- Logo -->
+        <div class="flex items-center gap-3 h-14 px-4 bg-gray-900">
+            <span class="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">F</span>
+            <span class="text-gray-300 text-sm">Mon Tableau de Bord</span>
+        </div>
+
+        <!-- Nav -->
+        <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-0.5">
+
+            <a href="./dashboard.html" class="flex items-center gap-2 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Tableau de bord
+            </a>
+
+            <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider px-3 pt-4 pb-1">Clients</p>
+
+            <a href="./clients.html" class="flex items-center gap-2 px-3 py-2 rounded-md bg-gray-700 text-white text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05C16.19 13.89 17 15.02 17 16.5V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                Liste des clients
+            </a>
+
+            <a href="./clients.html#nouveau" onclick="toggleForm()" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Nouveau client
+            </a>
+
+            <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider px-3 pt-4 pb-1">Factures</p>
+
+            <a href="./facture.html" class="flex items-center gap-2 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM9 13h6v2H9zm0-4h3v2H9z"/></svg>
+                Liste des factures
+            </a>
+
+            <a href="./facture.html#nouveau" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Nouvelle facture
+            </a>
+
+            <p class="text-gray-500 text-xs font-semibold uppercase tracking-wider px-3 pt-4 pb-1">Devis</p>
+
+            <a href="./devis.html" class="flex items-center gap-2 px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                Liste des devis
+            </a>
+
+            <a href="./devis.html#nouveau" class="flex items-center gap-2 pl-8 pr-3 py-1.5 rounded-md text-gray-400 hover:bg-gray-700 hover:text-gray-200 text-xs">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Nouveau devis
+            </a>
+
+        </nav>
+
+        <!-- Footer utilisateur -->
+        <div class="border-t border-gray-700 px-3 py-3 space-y-1">
+            <div class="flex items-center gap-2 px-2 py-1">
+                <span class="w-7 h-7 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-semibold">A</span>
+                <span class="text-gray-300 text-sm">Admin</span>
+            </div>
+            <a href="./index.html" class="flex items-center gap-2 px-2 py-1.5 rounded-md text-red-400 hover:bg-gray-700 text-sm">
+                <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>
+                Déconnexion
+            </a>
+        </div>
+
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto p-6">
+
+        <!-- En-tête page -->
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-800">Clients</h1>
+                <p class="text-sm text-gray-500 mt-0.5" id="count">0 client</p>
+            </div>
+            <button onclick="toggleForm()"
+                class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow-sm">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                Nouveau client
+            </button>
+        </div>
+
+        <!-- Tableau -->
+        <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-100">
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Nom</th>
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Prénom</th>
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Email</th>
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Téléphone</th>
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Ville</th>
+                            <th class="text-left text-[11px] font-semibold text-gray-400 uppercase tracking-widest px-6 py-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal nouveau client -->
+    <div id="formSection" class="hidden fixed inset-0 z-40 flex items-center justify-center">
+
+        <!-- Backdrop flouté -->
+        <div onclick="cancelForm()" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+
+        <!-- Fenêtre modale -->
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-200 mx-4 z-50 animate-modal">
+
+            <!-- En-tête -->
+            <div class="flex items-center justify-between px-6 py-5 border-b border-gray-100">
+                <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </span>
+                    <h2 class="text-base font-semibold text-gray-800">Nouveau client</h2>
+                </div>
+                <button onclick="cancelForm()" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+            </div>
+
+            <!-- Corps -->
+            <div class=" px-6 py-5 grid grid-cols-2 gap-x-5 gap-y-4">
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-medium text-gray-700">Nom <span class="text-red-500">*</span></label>
+                    <input id="fNom" type="text" placeholder="Dupont"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-medium text-gray-700">Prénom <span class="text-red-500">*</span></label>
+                    <input id="fPrenom" type="text" placeholder="Jean"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+                <div class="flex flex-col gap-1.5 col-span-2">
+                    <label class="text-sm font-medium text-gray-700">Email <span class="text-red-500">*</span></label>
+                    <input id="fEmail" type="email" placeholder="jean.dupont@exemple.com"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-medium text-gray-700">Téléphone</label>
+                    <input id="fTel" type="text" placeholder="06 00 00 00 00"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-medium text-gray-700">Ville</label>
+                    <input id="fVille" type="text" placeholder="Paris"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+                <div class="flex flex-col gap-1.5 col-span-2">
+                    <label class="text-sm font-medium text-gray-700">Adresse</label>
+                    <input id="fAdresse" type="text" placeholder="12 rue de la Paix"
+                        class="px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-800 placeholder-gray-300 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition bg-white" />
+                </div>
+
+            </div>
+
+            <!-- Pied -->
+            <div class="flex gap-3 px-6 py-4 border-t border-gray-100">
+                <button onclick="addClient()"
+                    class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors shadow-sm">
+                    Ajouter le client
+                </button>
+                <button onclick="cancelForm()"
+                    class="bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
+                    Annuler
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"
+        class="fixed bottom-6 right-6 text-white text-sm px-4 py-2.5 rounded-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50"></div>
+
+    <script src="/src/js/localStorage.js"></script>
+    <script src="/src/js/script.js"></script>
+</body>
+</html>

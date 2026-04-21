@@ -7,13 +7,40 @@
     <link rel="stylesheet" href="/src/style.css">
     <title>factura</title>
   </head>
-  <body>
-    <div class="min-h-screen bg-slate-100 flex items-center justify-center">
-<div class="bg-white rounded-2xl border border-slate-200 p-8">
-<p class="text-xl font-semibold text-slate-900">
-Tailwind fonctionne !
-</p>
+  <body class="bg-gray-300">
+    <div class="flex items-center justify-center align-center my-40">
+  <div
+    class="bg-white border-[4px] border-blue-600 rounded-2xl hover:border-blue-500 transition-all duration-200"
+  >
+    <div
+      class=" flex items-center space-y-4 py-10 px-9 font-semibold text-gray-500 flex-col"
+    >
+      <h3 class="text-white text-4xl px-4 py-1 rounded-md bg-blue-600">F</h3>
+      <h1 class="text-black text-2xl">Factura</h1>
+      <p class="text-2xs">Connecter-vous à votre compte</p>
+      <input
+        class="w-xs p-2 bg-white rounded-md border-[3px] border-gray-300 focus:border-blue-600 hover:border-blue-500 transition-all duration-200"
+        placeholder="Identifiant"
+        type="text"
+        name="username"
+        id=""
+      />
+      <input
+        class="w-full  p-2 bg-white rounded-md border-[3px] border-gray-300 focus:border-blue-600 hover:border-blue-500 transition-all duration-200"
+        placeholder="Mot de passe"
+        type="password"
+        name="password"
+        id=""
+      />
+      <button
+        class="btn-connexion w-xs p-3 bg-blue-600 text-white rounded-md hover:bg-blue-500 transition-all duration-200"
+        >
+          Se connecter
+        </button>
+    </div>
+  </div>
 </div>
-</div>
+  <script src="./src/js/script.js"></script>
+  <script src="./src/js/localStorage.js"></script>
   </body>
 </html>
